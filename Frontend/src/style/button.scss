@@ -1,0 +1,299 @@
+// ============================================================
+// button.scss
+// How to use in JSX:
+//   <button className="button primary-button">Login</button>
+//   <button className="button secondary-button">Cancel</button>
+//   <button className="button ghost-button">Skip</button>
+//   <button className="button danger-button">Delete</button>
+//   <button className="button primary-button btn-sm">Small</button>
+//   <button className="button primary-button btn-full">Full width</button>
+//
+// Import in your component: import '../style/button.scss'
+// Or import at the top of auth.form.scss: @use './button';
+// ============================================================
+
+
+// ─────────────────────────────────────────
+// WHAT IS A CSS VARIABLE?
+// --name: value;   ← define it
+// var(--name)      ← use it
+// Define in :root so it's available everywhere on the page.
+// ─────────────────────────────────────────
+
+:root {
+  // Accent (purple) — your primary brand color
+  --btn-accent:        #7c6ef7;
+  --btn-accent-hover:  #6b5ce7;   // ~10% darker, used on hover
+  --btn-accent-glow:   #7c6ef730; // 19% opacity — for focus ring / shadow
+
+  // Neutral tones
+  --btn-border:        #222222;
+  --btn-border-hover:  #444444;
+  --btn-text-muted:    #888888;
+  --btn-text-main:     #f0f0f0;
+
+  // Danger (red)
+  --btn-danger-border: #4a1111;
+  --btn-danger-text:   #f08080;
+  --btn-danger-hover-bg: #300a0a;
+
+  // Shared sizing
+  --btn-radius: 8px;
+  --btn-font:   15px;
+}
+
+
+// ─────────────────────────────────────────
+// BASE — .button
+// Every button gets this class.
+// It resets all browser defaults and sets shared structure.
+// ─────────────────────────────────────────
+
+.button {
+  // ── Reset browser defaults ──────────────
+  // Browsers apply their own styles to <button> — background, border, font.
+  // We clear them all so WE control everything.
+  appearance: none;  // removes platform-native button look (important on iOS/Safari)
+  border: none;      // remove default border
+  outline: none;     // remove focus outline (we'll add our own)
+  cursor: pointer;   // show hand cursor on hover
+  font-family: inherit; // use the same font as the rest of the page
+  text-decoration: none; // in case it's an <a> tag styled as a button
+
+  // ── Layout ──────────────────────────────
+  // display: inline-flex lets the button size to its content
+  // AND lets us use flexbox to center the text/icon inside
+  display: inline-flex;
+  align-items: center;     // vertically center content
+  justify-content: center; // horizontally center content
+  gap: 8px;                // space between icon and label
+
+  // ── Sizing ──────────────────────────────
+  padding: 11px 20px;
+  font-size: var(--btn-font);
+  font-weight: 600;
+  line-height: 1;           // prevents extra height from line-height
+  white-space: nowrap;      // prevents text from wrapping to a second line
+  border-radius: var(--btn-radius);
+
+  // ── user-select: none ───────────────────
+  // Stops text inside the button from being highlighted when you click it
+  user-select: none;
+
+  // ── Transition ──────────────────────────
+  // WHAT IT DOES: smoothly animates ANY css property change over time.
+  // WITHOUT transition: changes are instant (jarring).
+  // WITH transition: they ease in smoothly.
+  //
+  // Syntax: transition: property  duration  timing-function
+  //   property  = which CSS property to animate (use 'all' to animate everything)
+  //   duration  = how long the animation takes (0.2s = fast, 0.5s = slow)
+  //   timing-function = the speed curve:
+  //     ease       = starts fast, slows at end (most natural)
+  //     ease-in    = starts slow
+  //     ease-out   = ends slow
+  //     linear     = constant speed (good for loading spinners)
+  transition: background-color 0.2s ease,
+              border-color     0.2s ease,
+              color            0.2s ease,
+              transform        0.15s ease,  // slightly faster for the "press" feel
+              box-shadow       0.2s ease;
+
+  // ── Disabled state ───────────────────────
+  // :disabled is a pseudo-class — applies when the button has disabled attribute
+  // Example: <button className="button primary-button" disabled>
+  &:disabled {
+    opacity: 0.4;          // fade the button out
+    cursor: not-allowed;   // show X cursor to signal it's blocked
+    pointer-events: none;  // block ALL mouse interactions (hover, click, etc.)
+  }
+}
+
+
+// ─────────────────────────────────────────
+// VARIANT — .primary-button
+// Solid filled button. Your main action.
+// Usage: className="button primary-button"
+// ─────────────────────────────────────────
+
+.primary-button {
+  background-color: var(--btn-accent); // solid purple fill
+  color: #ffffff;
+  border: 1px solid transparent; // invisible border — keeps size consistent with other variants
+
+  // :hover fires when the mouse moves over the element
+  &:hover {
+    background-color: var(--btn-accent-hover); // slightly darker shade
+
+    // transform: translateY(-2px) moves the element UP by 2px
+    // This "lift" effect signals the button is interactive
+    transform: translateY(-2px);
+
+    // box-shadow: x  y  blur  spread  color
+    //   0 0 = centered (no x/y offset)
+    //   20px = soft blur radius
+    //   The color is our accent at low opacity = a purple glow
+    box-shadow: 0 6px 20px var(--btn-accent-glow);
+  }
+
+  // :focus-visible fires when the button is focused via keyboard (Tab key)
+  // We don't use :focus alone because it fires on mouse click too (annoying)
+  &:focus-visible {
+    box-shadow: 0 0 0 3px var(--btn-accent-glow); // solid focus ring
+  }
+
+  // :active fires while the mouse button is held down (before releasing)
+  // This creates the "pressed into the screen" feeling
+  &:active {
+    transform: translateY(0) scale(0.97); // push back down + shrink slightly
+    box-shadow: none;
+  }
+}
+
+
+// ─────────────────────────────────────────
+// VARIANT — .secondary-button
+// Outlined, no fill. For less important actions.
+// Usage: className="button secondary-button"
+// ─────────────────────────────────────────
+
+.secondary-button {
+  background-color: transparent; // no fill — just the border
+  color: var(--btn-text-muted);
+  border: 1px solid var(--btn-border);
+
+  &:hover {
+    border-color: var(--btn-border-hover); // border brightens on hover
+    color: var(--btn-text-main);
+    background-color: #161616;  // very subtle fill appears
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 3px #ffffff15;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+
+// ─────────────────────────────────────────
+// VARIANT — .ghost-button
+// No border, no background. Minimal footprint.
+// Great for Cancel, Skip, Close actions.
+// Usage: className="button ghost-button"
+// ─────────────────────────────────────────
+
+.ghost-button {
+  background-color: transparent;
+  border: 1px solid transparent; // invisible — keeps alignment with other buttons
+  color: var(--btn-text-muted);
+
+  &:hover {
+    background-color: #1a1a1a;
+    color: var(--btn-text-main);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+
+// ─────────────────────────────────────────
+// VARIANT — .danger-button
+// For destructive actions: Delete, Remove, Reset.
+// Red signals "be careful".
+// Usage: className="button danger-button"
+// ─────────────────────────────────────────
+
+.danger-button {
+  background-color: transparent;
+  color: var(--btn-danger-text);  // soft red text
+  border: 1px solid var(--btn-danger-border);
+
+  &:hover {
+    background-color: var(--btn-danger-hover-bg); // dark red tint
+    border-color: #7a2020;
+    color: #ff9999;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+
+// ─────────────────────────────────────────
+// SIZE MODIFIERS
+// Add alongside the variant class to resize.
+// These use !important to override the base padding.
+//
+// Usage: className="button primary-button btn-sm"
+//        className="button secondary-button btn-lg"
+// ─────────────────────────────────────────
+
+// Small — for tight spaces, table rows, tags
+.btn-sm {
+  padding: 7px 14px !important;
+  font-size: 13px !important;
+  border-radius: 6px !important;
+  gap: 5px !important;
+}
+
+// Large — for hero sections, prominent CTAs
+.btn-lg {
+  padding: 14px 28px !important;
+  font-size: 16px !important;
+  border-radius: 10px !important;
+}
+
+
+// ─────────────────────────────────────────
+// LAYOUT MODIFIER — .btn-full
+// Makes the button stretch to fill its container's width.
+// Useful in forms, modals, mobile layouts.
+// Usage: className="button primary-button btn-full"
+// ─────────────────────────────────────────
+
+.btn-full {
+  width: 100%;
+}
+
+
+// ─────────────────────────────────────────
+// ICON BUTTON — .btn-icon
+// A square button for icon-only actions.
+// (Close X, settings gear, etc.)
+// Usage: className="button btn-icon"
+// ─────────────────────────────────────────
+
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  padding: 0 !important; // override base padding — we use fixed w/h instead
+  background-color: transparent;
+  border: 1px solid var(--btn-border);
+  border-radius: 8px;
+  color: var(--btn-text-muted);
+
+  // Target any svg inside the button
+  svg {
+    width: 16px;
+    height: 16px;
+    // pointer-events: none prevents the SVG from catching mouse events
+    // that should belong to the button
+    pointer-events: none;
+  }
+
+  &:hover {
+    background-color: #1a1a1a;
+    border-color: var(--btn-border-hover);
+    color: var(--btn-text-main);
+  }
+
+  &:active {
+    transform: scale(0.92);
+  }
+}

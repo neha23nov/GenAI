@@ -1,0 +1,544 @@
+// ── Google Font Import ────────────────────────────────────────────────────────
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Share+Tech+Mono&family=Outfit:wght@200;300;400;500&display=swap');
+
+// ── Variables ────────────────────────────────────────────────────────────────
+$bg-void:        #020408;
+$bg-deep:        #060a12;
+$bg-card:        #080d18;
+$bg-panel:       #0b1120;
+$bg-input:       #070b14;
+$border-dim:     #111827;
+$border-subtle:  #1a2540;
+$border-accent:  #2d1f6e;
+$text-primary:   #dce8ff;
+$text-secondary: #8899bb;
+$text-muted:     #3d4f70;
+$accent:         #6366f1;
+$accent-soft:    #818cf8;
+$accent-dim:     #312e81;
+$purple-glow:    #7c3aed;
+$cyan-trace:     #22d3ee;
+$severity-high:  #f87171;
+$severity-mid:   #f59e0b;
+$severity-low:   #818cf8;
+$font-ui:        'Space Grotesk', sans-serif;
+$font-body:      'Outfit', sans-serif;
+$font-mono:      'Share Tech Mono', monospace;
+
+// ── Keyframes ────────────────────────────────────────────────────────────────
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes gridScroll {
+    from { background-position: 0 0; }
+    to   { background-position: 0 60px; }
+}
+
+@keyframes orbPulse {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50%       { opacity: 0.35; transform: scale(1.06); }
+}
+
+@keyframes borderPulse {
+    0%, 100% { opacity: 0.3; }
+    50%       { opacity: 0.75; }
+}
+
+@keyframes dotPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba($accent, 0.5); }
+    50%       { box-shadow: 0 0 0 5px rgba($accent, 0); }
+}
+
+@keyframes cursorBlink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+}
+
+@keyframes scanDown {
+    0%   { top: -1px; opacity: 0.4; }
+    100% { top: 100%; opacity: 0; }
+}
+
+// ── Scrollbar ────────────────────────────────────────────────────────────────
+*::-webkit-scrollbar { width: 3px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: $border-accent; border-radius: 2px; }
+
+// ── Page Shell ───────────────────────────────────────────────────────────────
+.interview-page {
+    width: 100%;
+    min-height: 100vh;
+    background-color: $bg-void;
+    color: $text-primary;
+    font-family: $font-body;
+    display: flex;
+    align-items: stretch;
+    padding: 1.25rem;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: fixed; inset: 0;
+        background-image:
+            linear-gradient(to right, rgba($accent-dim, 0.05) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba($accent-dim, 0.05) 1px, transparent 1px);
+        background-size: 60px 60px;
+        animation: gridScroll 20s linear infinite;
+        pointer-events: none; z-index: 0;
+    }
+
+    &::after {
+        content: '';
+        position: fixed; inset: 0;
+        background: radial-gradient(ellipse 70% 50% at 20% 20%, rgba($purple-glow, 0.06) 0%, transparent 60%);
+        pointer-events: none; z-index: 0;
+    }
+
+    > * { position: relative; z-index: 1; }
+}
+
+.orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none; z-index: 0;
+
+    &--1 {
+        width: 500px; height: 500px;
+        background: rgba($purple-glow, 0.1);
+        top: -150px; left: -120px;
+        animation: orbPulse 16s ease-in-out infinite;
+    }
+    &--2 {
+        width: 350px; height: 350px;
+        background: rgba($accent, 0.07);
+        bottom: -120px; right: -80px;
+        animation: orbPulse 20s ease-in-out infinite 5s;
+    }
+}
+
+.scanline {
+    position: fixed; left: 0; right: 0; height: 1px;
+    background: linear-gradient(to right, transparent, rgba($accent-soft, 0.08), transparent);
+    animation: scanDown 18s linear infinite;
+    pointer-events: none; z-index: 0;
+}
+
+// ── Layout ────────────────────────────────────────────────────────────────────
+.interview-layout {
+    display: flex;
+    width: 100%; max-width: 1300px;
+    margin: 0 auto;
+    background: rgba($bg-card, 0.85);
+    border: 1px solid $border-subtle;
+    border-radius: 0.75rem;
+    backdrop-filter: blur(20px);
+    animation: fadeUp 0.8s ease both;
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 8%; right: 8%; height: 1px;
+        background: linear-gradient(to right, transparent, $accent-soft, $cyan-trace, $accent-soft, transparent);
+        animation: borderPulse 5s ease-in-out infinite;
+    }
+}
+
+.interview-divider {
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, $border-subtle 20%, $border-subtle 80%, transparent);
+    flex-shrink: 0;
+}
+
+// ── Left Nav ─────────────────────────────────────────────────────────────────
+.interview-nav {
+    width: 230px; flex-shrink: 0;
+    padding: 1.75rem 1rem;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+
+    .nav-content { display: flex; flex-direction: column; gap: 0.2rem; }
+
+    &__label {
+        font-size: 0.6rem; font-weight: 400;
+        text-transform: uppercase; letter-spacing: 0.15em;
+        color: $text-muted; padding: 0 0.75rem;
+        margin-bottom: 0.75rem; font-family: $font-mono;
+        &::before { content: '// '; color: $accent-soft; opacity: 0.4; }
+    }
+
+    &__item {
+        display: flex; align-items: center; gap: 0.65rem;
+        width: 100%; padding: 0.65rem 0.85rem;
+        background: none; border: none;
+        border-radius: 0.35rem;
+        color: $text-muted;
+        font-family: $font-mono;
+        font-size: 0.78rem; font-weight: 400;
+        cursor: pointer; text-align: left;
+        transition: all 0.3s ease;
+        position: relative; overflow: hidden;
+        letter-spacing: 0.03em;
+
+        &::before {
+            content: '';
+            position: absolute; left: 0; top: 20%; bottom: 20%;
+            width: 2px; background: $accent-soft;
+            border-radius: 0 2px 2px 0;
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        &:hover {
+            background: rgba($accent, 0.05);
+            color: $text-secondary;
+        }
+
+        &--active {
+            background: rgba($accent, 0.08);
+            color: $accent-soft;
+
+            &::before { transform: scaleY(1); }
+        }
+    }
+
+    &__icon { display: flex; align-items: center; flex-shrink: 0; opacity: 0.7; }
+}
+
+.button.primary-button {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0.7rem 1rem;
+    background: transparent;
+    color: $accent-soft;
+    border: 1px solid rgba($accent, 0.3);
+    border-radius: 0.35rem;
+    cursor: pointer;
+    font-family: $font-mono;
+    font-size: 0.75rem; font-weight: 400;
+    letter-spacing: 0.04em;
+    transition: all 0.3s ease;
+
+    &:hover {
+        border-color: rgba($accent-soft, 0.5);
+        background: rgba($accent, 0.06);
+        box-shadow: 0 0 16px rgba($accent, 0.1);
+        color: $text-primary;
+    }
+}
+
+// ── Center Content ────────────────────────────────────────────────────────────
+.interview-content {
+    flex: 1;
+    padding: 1.75rem 2rem;
+    overflow-y: auto;
+    max-height: calc(100vh - 2.5rem);
+    padding-bottom: 5rem;
+
+    section { animation: fadeUp 0.5s ease both; }
+}
+
+.content-header {
+    display: flex; align-items: baseline; gap: 0.75rem;
+    margin-bottom: 1.5rem; padding-bottom: 1rem;
+    border-bottom: 1px solid $border-dim;
+
+    h2 {
+        font-size: 0.95rem; font-weight: 500;
+        color: $text-primary; margin: 0;
+        font-family: $font-ui; letter-spacing: 0.01em;
+    }
+
+    &__count {
+        font-size: 0.65rem; color: $accent-soft;
+        background: rgba($accent, 0.08);
+        padding: 0.12rem 0.6rem;
+        border-radius: 2rem;
+        border: 1px solid rgba($accent, 0.18);
+        font-family: $font-mono;
+    }
+}
+
+// ── Question Cards ────────────────────────────────────────────────────────────
+.q-list { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.q-card {
+    background: rgba($bg-panel, 0.5);
+    border: 1px solid $border-dim;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+    animation: fadeIn 0.4s ease both;
+
+    @for $i from 1 through 10 {
+        &:nth-child(#{$i}) { animation-delay: #{$i * 0.06}s; }
+    }
+
+    &:hover { border-color: rgba($accent, 0.25); }
+
+    &__header {
+        display: flex; align-items: flex-start; gap: 0.75rem;
+        padding: 0.95rem 1.1rem;
+        cursor: pointer; user-select: none;
+    }
+
+    &__index {
+        flex-shrink: 0;
+        font-size: 0.62rem; font-weight: 400;
+        color: $accent-soft;
+        background: rgba($accent, 0.08);
+        border: 1px solid rgba($accent, 0.18);
+        border-radius: 0.2rem;
+        padding: 0.12rem 0.4rem;
+        margin-top: 2px; font-family: $font-mono;
+    }
+
+    &__question {
+        flex: 1; margin: 0;
+        font-size: 0.875rem; font-weight: 400;
+        color: $text-primary; line-height: 1.6;
+        font-family: $font-ui;
+    }
+
+    &__chevron {
+        flex-shrink: 0; color: $text-muted;
+        transition: transform 0.3s ease, color 0.2s;
+        margin-top: 3px;
+
+        &--open { transform: rotate(180deg); color: $accent-soft; }
+    }
+
+    &__body {
+        padding: 0 1.1rem 1.1rem;
+        display: flex; flex-direction: column; gap: 0.85rem;
+        border-top: 1px solid $border-dim;
+        padding-top: 0.85rem;
+        animation: fadeUp 0.25s ease both;
+    }
+
+    &__section {
+        display: flex; flex-direction: column; gap: 0.4rem;
+
+        p {
+            margin: 0; font-size: 0.8rem;
+            color: $text-secondary; line-height: 1.75;
+            font-family: $font-mono;
+        }
+    }
+
+    &__tag {
+        font-size: 0.6rem; font-weight: 400;
+        text-transform: uppercase; letter-spacing: 0.1em;
+        padding: 0.12rem 0.5rem;
+        border-radius: 0.2rem; width: fit-content;
+        font-family: $font-mono;
+
+        &--intention {
+            color: rgba($cyan-trace, 0.8);
+            background: rgba($cyan-trace, 0.07);
+            border: 1px solid rgba($cyan-trace, 0.15);
+        }
+        &--answer {
+            color: rgba(#34d399, 0.8);
+            background: rgba(#34d399, 0.07);
+            border: 1px solid rgba(#34d399, 0.15);
+        }
+    }
+}
+
+// ── Road Map ──────────────────────────────────────────────────────────────────
+.roadmap-list {
+    display: flex; flex-direction: column; gap: 0;
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute; left: 26px; top: 0; bottom: 0; width: 1px;
+        background: linear-gradient(to bottom, $accent, rgba($accent, 0.1), transparent);
+    }
+}
+
+.roadmap-day {
+    display: flex; flex-direction: column; gap: 0.55rem;
+    padding: 0.85rem 0 0.85rem 3.5rem;
+    position: relative;
+    animation: fadeIn 0.5s ease both;
+
+    @for $i from 1 through 10 {
+        &:nth-child(#{$i}) { animation-delay: #{$i * 0.08}s; }
+    }
+
+    &::before {
+        content: '';
+        position: absolute; left: 21px; top: 1.05rem;
+        width: 10px; height: 10px;
+        border-radius: 50%;
+        background: $bg-card;
+        border: 1px solid $accent;
+        animation: dotPulse 4s ease-in-out infinite;
+    }
+
+    &__header { display: flex; align-items: center; gap: 0.6rem; }
+
+    &__badge {
+        font-size: 0.6rem; color: $accent-soft;
+        background: rgba($accent, 0.08);
+        border: 1px solid rgba($accent, 0.2);
+        padding: 0.1rem 0.5rem; border-radius: 2rem;
+        font-family: $font-mono;
+    }
+
+    &__focus {
+        margin: 0; font-size: 0.875rem; font-weight: 500;
+        color: $text-primary; font-family: $font-ui;
+    }
+
+    &__tasks {
+        list-style: none; margin: 0; padding: 0;
+        display: flex; flex-direction: column; gap: 0.4rem;
+
+        li {
+            display: flex; align-items: flex-start; gap: 0.6rem;
+            font-size: 0.78rem; color: $text-secondary;
+            line-height: 1.65; font-family: $font-mono;
+        }
+    }
+
+    &__bullet {
+        flex-shrink: 0; width: 4px; height: 4px;
+        border-radius: 50%; background: $border-accent; margin-top: 9px;
+    }
+}
+
+// ── Right Sidebar ─────────────────────────────────────────────────────────────
+.interview-sidebar {
+    width: 240px; flex-shrink: 0;
+    padding: 1.75rem 1.25rem;
+    display: flex; flex-direction: column; gap: 1.5rem;
+}
+
+.sidebar-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, $border-subtle, transparent);
+}
+
+// Match Score
+.match-score {
+    display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+    animation: fadeUp 0.6s ease 0.2s both;
+
+    &__label {
+        font-size: 0.6rem; font-weight: 400;
+        text-transform: uppercase; letter-spacing: 0.15em;
+        color: $text-muted; margin: 0; align-self: flex-start;
+        font-family: $font-mono;
+        &::before { content: '// '; color: $accent-soft; opacity: 0.4; }
+    }
+
+    &__ring {
+        width: 90px; height: 90px; border-radius: 50%;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        border: 1px solid; position: relative;
+
+        &::after {
+            content: '';
+            position: absolute; inset: -6px; border-radius: 50%;
+            border: 1px solid; opacity: 0.15;
+        }
+
+        &.score--high {
+            border-color: rgba($accent-soft, 0.6);
+            box-shadow: 0 0 24px rgba($accent, 0.15), inset 0 0 16px rgba($accent, 0.04);
+            &::after { border-color: $accent-soft; }
+        }
+        &.score--mid {
+            border-color: rgba($severity-mid, 0.6);
+            box-shadow: 0 0 24px rgba($severity-mid, 0.12);
+            &::after { border-color: $severity-mid; }
+        }
+        &.score--low {
+            border-color: rgba($severity-high, 0.6);
+            box-shadow: 0 0 24px rgba($severity-high, 0.12);
+            &::after { border-color: $severity-high; }
+        }
+    }
+
+    &__value {
+        font-size: 1.65rem; font-weight: 300;
+        color: $text-primary; line-height: 1;
+        font-family: $font-ui; letter-spacing: -0.02em;
+    }
+
+    &__pct { font-size: 0.68rem; color: $text-muted; font-family: $font-mono; }
+
+    &__sub {
+        margin: 0; font-size: 0.68rem;
+        color: $accent-soft; text-align: center; font-family: $font-mono;
+    }
+}
+
+// Skill Gaps
+.skill-gaps {
+    display: flex; flex-direction: column; gap: 0.85rem;
+    animation: fadeUp 0.6s ease 0.3s both;
+
+    &__label {
+        font-size: 0.6rem; font-weight: 400;
+        text-transform: uppercase; letter-spacing: 0.15em;
+        color: $text-muted; margin: 0; font-family: $font-mono;
+        &::before { content: '// '; color: $accent-soft; opacity: 0.4; }
+    }
+
+    &__list { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+}
+
+.skill-tag {
+    font-size: 0.68rem; font-weight: 400;
+    padding: 0.25rem 0.65rem;
+    border-radius: 0.25rem; border: 1px solid;
+    cursor: default; font-family: $font-mono;
+    transition: opacity 0.2s ease;
+    letter-spacing: 0.03em;
+
+    &:hover { opacity: 0.8; }
+
+    &--high { color: $severity-high; background: rgba($severity-high, 0.07); border-color: rgba($severity-high, 0.2); }
+    &--medium { color: $severity-mid; background: rgba($severity-mid, 0.07); border-color: rgba($severity-mid, 0.2); }
+    &--low { color: $severity-low; background: rgba($severity-low, 0.07); border-color: rgba($severity-low, 0.2); }
+}
+
+// ── Loading Screen ────────────────────────────────────────────────────────────
+.loading-screen {
+    width: 100%; min-height: 100vh;
+    background: $bg-void;
+    display: flex; align-items: center; justify-content: center;
+    font-family: $font-mono;
+    position: relative;
+
+    &::before {
+        content: '';
+        position: fixed; inset: 0;
+        background-image:
+            linear-gradient(to right, rgba($accent-dim, 0.05) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba($accent-dim, 0.05) 1px, transparent 1px);
+        background-size: 60px 60px;
+        animation: gridScroll 20s linear infinite;
+        pointer-events: none;
+    }
+
+    h1 {
+        font-size: 0.82rem; font-weight: 400;
+        color: $text-muted; letter-spacing: 0.1em;
+        position: relative; z-index: 1;
+        &::after { content: '...'; animation: cursorBlink 1.4s ease-in-out infinite; }
+    }
+}

@@ -1,0 +1,196 @@
+// ============================================================
+// auth.form.scss
+// Matches your JSX classes exactly:
+// <main>, .form-container, .input-group, .button.primary-button
+// ============================================================
+
+// ─────────────────────────────────────────
+// VARIABLES
+// ─────────────────────────────────────────
+
+:root {
+  --bg-page:        #080808;
+  --bg-card:        #111111;
+  --bg-input:       #0d0d0d;
+
+  --border-default: #1e1e1e;
+  --border-focus:   #7c6ef7;
+  --border-hover:   #2e2e2e;
+
+  --accent:         #7c6ef7;
+  --accent-dark:    #6b5ce7;
+  --accent-glow:    #7c6ef730;
+
+  --text-primary:   #f0f0f0;
+  --text-muted:     #555555;
+  --text-placeholder: #2e2e2e;
+
+  --radius-card:  18px;
+  --radius-input: 9px;
+  --transition:   0.2s ease;
+}
+
+// ─────────────────────────────────────────
+// PAGE — <main>
+// Centers the card on a black background
+// ─────────────────────────────────────────
+
+main {
+  min-height: 100vh;
+  background-color: var(--bg-page);
+
+  display: flex;
+  align-items: center;      // vertical center
+  justify-content: center;  // horizontal center
+
+  padding: 24px 16px;
+  font-family: 'Inter', sans-serif;
+
+  // Add this to index.html <head> for the font:
+  // <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+}
+
+// ─────────────────────────────────────────
+// CARD — .form-container
+// ─────────────────────────────────────────
+
+.form-container {
+  width: 100%;
+  max-width: 400px;
+
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-card);
+  padding: 44px 40px;
+
+  // Headings inside the card
+  h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.03em;
+    margin: 0 0 32px 0;
+  }
+
+  // Stack all form children vertically with even spacing
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+// ─────────────────────────────────────────
+// FIELD — .input-group
+// Wraps a label + input pair
+// ─────────────────────────────────────────
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  input {
+    // box-sizing: border-box — padding is included in width.
+    // Without this a width:100% input overflows its parent.
+    box-sizing: border-box;
+    width: 100%;
+
+    padding: 12px 14px;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-input);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+
+    transition: border-color var(--transition),
+                box-shadow   var(--transition),
+                background   var(--transition);
+
+    &::placeholder {
+      color: var(--text-placeholder);
+    }
+
+    // Subtle background shift on hover (before clicking)
+    &:hover {
+      border-color: var(--border-hover);
+      background-color: #0f0f0f;
+    }
+
+    // Purple ring when clicked into
+    &:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+      background-color: #0a0a0a;
+    }
+  }
+}
+
+// ─────────────────────────────────────────
+// BUTTON — .button.primary-button
+// Your JSX: className='button primary-button'
+// ─────────────────────────────────────────
+
+.button {
+  // Reset all browser defaults
+  appearance: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: inherit;
+  user-select: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  width: 100%;
+  padding: 13px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  border-radius: var(--radius-input);
+
+  transition: background-color var(--transition),
+              transform        0.15s ease,
+              box-shadow       var(--transition);
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+.primary-button {
+  background-color: var(--accent);
+  color: #ffffff;
+  margin-top: 4px; // small extra gap above the button
+
+  &:hover {
+    background-color: var(--accent-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px var(--accent-glow);
+  }
+
+  &:active {
+    transform: scale(0.98) translateY(0);
+    box-shadow: none;
+  }
+
+  // Keyboard focus ring (Tab key navigation)
+  &:focus-visible {
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+}
