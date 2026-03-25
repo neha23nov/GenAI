@@ -1,4 +1,3 @@
-# Align your profile to the job. Land the interview.
 
 An AI-powered career preparation platform built for students and freshers. It analyzes your resume, self-description, and target job description to identify skill gaps, generate interview questions, build a preparation roadmap, and produce a tailored resume — all in one place.
 
