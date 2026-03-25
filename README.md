@@ -1,8 +1,6 @@
-# AlignAI
+# Align your profile to the job. Land the interview.
 
-> Align your profile to the job. Land the interview.
-
-AlignAI is an AI-powered career preparation platform built for students and freshers. It analyzes your resume, self-description, and target job description to identify skill gaps, generate interview questions, build a preparation roadmap, and produce a tailored resume — all in one place.
+An AI-powered career preparation platform built for students and freshers. It analyzes your resume, self-description, and target job description to identify skill gaps, generate interview questions, build a preparation roadmap, and produce a tailored resume — all in one place.
 
 ---
 
@@ -40,7 +38,7 @@ AlignAI is an AI-powered career preparation platform built for students and fres
 ## Project Structure
 
 ```
-AlignAI/
+GenAI/
 ├── frontend/
 │   └── src/
 │       ├── features/
@@ -88,8 +86,8 @@ AlignAI/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/alignai.git
-cd alignai
+git clone https://github.com/yourusername/genai.git
+cd genai
 ```
 
 ### 2. Setup Backend
@@ -154,7 +152,7 @@ The app will be running at `http://localhost:5173`
 
 1. User registers and logs in
 2. On the home page, user pastes a job description and uploads a resume or writes a self-description
-3. AlignAI sends the data to Google Gemini AI
+3. GENAI sends the data to Google Gemini AI
 4. Gemini analyzes the profile against the job description and returns a structured report
 5. The report is saved to MongoDB and displayed on the interview page
 6. User can browse technical questions, behavioral questions, and the preparation roadmap
