@@ -6,10 +6,18 @@ const cors=require("cors")
 app.use(cookieParser())
 app.use(express.json())       
 app.use(express.urlencoded({ extended: true }))
+app.set("trust proxy", 1);
+
 app.use(cors({
   origin: "https://gen-ai-theta-plum.vercel.app",
   credentials: true
 }));
+
+res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "None"
+});
 
 
 
