@@ -33,7 +33,11 @@ const tokenBlacklistModel=require("../models/blacklist.model")
                 {expiresIn:"1d"}
 
             )
-            res.cookie("token",token)
+         res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "None"
+});
             res.status(201).json({
                 message:"user registered successfully",
                 user:{
@@ -75,7 +79,11 @@ const tokenBlacklistModel=require("../models/blacklist.model")
 
 
             )
-            res.cookie("token",token)
+           res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "None"
+});
             res.status(200).json({
                 message:"user logged in successfully",
                 user:{
