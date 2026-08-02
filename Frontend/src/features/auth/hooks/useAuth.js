@@ -17,8 +17,11 @@ export const useAuth = () => {
         try {
             const data = await login({ email, password });
             setUser(data.user);
+            return { success: true };
         } catch (err) {
             console.log(err);
+            const message = err.response?.data?.message || 'Login failed. Check your credentials.';
+            return { success: false, message };
         } finally {
             setLoading(false);
         }
@@ -29,8 +32,11 @@ export const useAuth = () => {
         try {
             const data = await register({ username, email, password });
             setUser(data.user);
+            return { success: true };
         } catch (err) {
             console.log(err);
+            const message = err.response?.data?.message || 'Registration failed.';
+            return { success: false, message };
         } finally {
             setLoading(false);
         }

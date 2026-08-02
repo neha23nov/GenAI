@@ -35,7 +35,7 @@
 // Centers the card on a black background
 // ─────────────────────────────────────────
 
-main {
+.auth-page {
   min-height: 100vh;
   background-color: var(--bg-page);
 
@@ -70,6 +70,17 @@ main {
     color: var(--text-primary);
     letter-spacing: -0.03em;
     margin: 0 0 32px 0;
+  }
+
+  // Error message shown on failed login/register
+  .form-error {
+    background-color: #33150f;
+    border: 1px solid #4d2418;
+    color: #e19080;
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: var(--radius-input);
+    margin: -16px 0 20px 0;
   }
 
   // Stack all form children vertically with even spacing

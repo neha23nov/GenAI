@@ -11,18 +11,18 @@ const Register = () => {
     const[email,setEmail]=useState('');
     const[password,setPassword]=useState('');
 
-
     const {loading , handleRegister}=useAuth();
-
-
-
-
-
+    const [error, setError] = useState("");
 
     const handleSubmit=async (e)=>{
         e.preventDefault();
-        await handleRegister({username,email,password});
-        Navigate('/app');
+        setError("");
+        const result = await handleRegister({username,email,password});
+        if (result.success) {
+            Navigate('/app');
+        } else {
+            setError(result.message);
+        }
     }
 
     if(loading){
@@ -31,9 +31,10 @@ const Register = () => {
 
 
   return (
-    <main>
+    <main className="auth-page">
         <div className="form-container">
             <h1>Register</h1>
+            {error && <p className='form-error'>{error}</p>}
             <form onSubmit={handleSubmit}>
                 <div className="input-group">
                     <label htmlFor="username">Username</label>

@@ -15,11 +15,17 @@ const Login = () => {
 
     const Navigate=useNavigate();
 
-    const handleSubmit = (e) => {
+    const [error, setError] = useState("");
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-            handleLogin({email,password});
-        // Handle form submission logic here
-        Navigate("/app")
+        setError("");
+        const result = await handleLogin({email,password});
+        if (result.success) {
+            Navigate("/app");
+        } else {
+            setError(result.message);
+        }
     }   
 
     if(loading){
@@ -28,9 +34,10 @@ const Login = () => {
 
 
   return (
-    <main>
+    <main className="auth-page">
     <div className="form-container">
         <h1>Login</h1>
+        {error && <p className='form-error'>{error}</p>}
         <form onSubmit={handleSubmit}>
             <div className="input-group">
                 <label htmlFor="email">Email</label>
