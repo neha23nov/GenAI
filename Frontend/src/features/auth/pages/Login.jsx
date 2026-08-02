@@ -19,7 +19,7 @@ const Login = () => {
         e.preventDefault();
             handleLogin({email,password});
         // Handle form submission logic here
-        Navigate("/")
+        Navigate("/app")
     }   
 
     if(loading){

@@ -22,7 +22,7 @@ const Register = () => {
     const handleSubmit=async (e)=>{
         e.preventDefault();
         await handleRegister({username,email,password});
-        Navigate('/');
+        Navigate('/app');
     }
 
     if(loading){

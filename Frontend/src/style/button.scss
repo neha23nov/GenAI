@@ -21,21 +21,21 @@
 // ─────────────────────────────────────────
 
 :root {
-  // Accent (purple) — your primary brand color
-  --btn-accent:        #7c6ef7;
-  --btn-accent-hover:  #6b5ce7;   // ~10% darker, used on hover
-  --btn-accent-glow:   #7c6ef730; // 19% opacity — for focus ring / shadow
+  // Accent (warm amber) — your primary brand color
+  --btn-accent:        #E08D3C;
+  --btn-accent-hover:  #C97A2E;   // ~10% darker, used on hover
+  --btn-accent-glow:   #E08D3C30; // 19% opacity — for focus ring / shadow
 
-  // Neutral tones
-  --btn-border:        #222222;
-  --btn-border-hover:  #444444;
-  --btn-text-muted:    #888888;
-  --btn-text-main:     #f0f0f0;
+  // Neutral tones (warm charcoal-brown, not cold grey)
+  --btn-border:        #3a2f22;
+  --btn-border-hover:  #5c4a35;
+  --btn-text-muted:    #ad9a80;
+  --btn-text-main:     #f5efe6;
 
-  // Danger (red)
-  --btn-danger-border: #4a1111;
-  --btn-danger-text:   #f08080;
-  --btn-danger-hover-bg: #300a0a;
+  // Danger (brick red, warm not neon)
+  --btn-danger-border: #4d2418;
+  --btn-danger-text:   #e19080;
+  --btn-danger-hover-bg: #33150f;
 
   // Shared sizing
   --btn-radius: 8px;
@@ -117,7 +117,7 @@
 // ─────────────────────────────────────────
 
 .primary-button {
-  background-color: var(--btn-accent); // solid purple fill
+  background-color: var(--btn-accent); // solid amber fill
   color: #ffffff;
   border: 1px solid transparent; // invisible border — keeps size consistent with other variants
 
@@ -132,7 +132,7 @@
     // box-shadow: x  y  blur  spread  color
     //   0 0 = centered (no x/y offset)
     //   20px = soft blur radius
-    //   The color is our accent at low opacity = a purple glow
+    //   The color is our accent at low opacity = an amber glow
     box-shadow: 0 6px 20px var(--btn-accent-glow);
   }
 

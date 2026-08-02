@@ -2,22 +2,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Share+Tech+Mono&family=Outfit:wght@200;300;400;500&display=swap');
 
 // ── Variables ────────────────────────────────────────────────────────────────
-$bg-void:        #020408;
-$bg-deep:        #060a12;
-$bg-card:        #080d18;
-$bg-panel:       #0b1120;
-$bg-input:       #070b14;
-$border-dim:     #111827;
-$border-subtle:  #1a2540;
-$border-accent:  #2d1f6e;
-$text-primary:   #dce8ff;
-$text-secondary: #8899bb;
-$text-muted:     #3d4f70;
-$accent:         #6366f1;
-$accent-soft:    #818cf8;
-$accent-dim:     #312e81;
-$purple-glow:    #7c3aed;
-$cyan-trace:     #22d3ee;
+$bg-void:        #14100c;
+$bg-deep:        #1a1410;
+$bg-card:        #201a14;
+$bg-panel:       #241e17;
+$bg-input:       #1c1712;
+$border-dim:     #2b241a;
+$border-subtle:  #3d3020;
+$border-accent:  #4d2e16;
+$text-primary:   #F3E6D3;
+$text-secondary: #AD9A80;
+$text-muted:     #6b5238;
+$accent:         #E08D3C;
+$accent-soft:    #F0AD5C;
+$accent-dim:     #5c3a1e;
+$purple-glow:    #C1543E;
+$cyan-trace:     #4FA8A0;
 $font-ui:        'Space Grotesk', sans-serif;
 $font-body:      'Outfit', sans-serif;
 $font-mono:      'Share Tech Mono', monospace;
@@ -467,8 +467,8 @@ $font-mono:      'Share Tech Mono', monospace;
         .match-score {
             font-size: 0.7rem; font-family: $font-mono; margin: 0;
             &.score--high { color: $accent-soft; }
-            &.score--mid  { color: #f59e0b; }
-            &.score--low  { color: #f87171; }
+            &.score--mid  { color: #E0A452; }
+            &.score--low  { color: #D9705C; }
         }
     }
 }
