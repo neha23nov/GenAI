@@ -26,7 +26,7 @@ An AI-powered career preparation platform built for students and freshers. It an
 ### Backend
 - Node.js + Express
 - MongoDB + Mongoose
-- Google Gemini AI (`gemini-2.5-flash`)
+- Google Gemini AI (`gemini-3.5-flash`)
 - Multer (file uploads)
 - pdf-parse (resume extraction)
 - Puppeteer (PDF generation)
